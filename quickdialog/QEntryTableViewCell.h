@@ -27,13 +27,13 @@
 @interface QEntryTableViewCell : QTableViewCell<UITextFieldDelegate> {
 
     QEntryElement *_entryElement;
-    QTextField *_textField;
+    UITextField *_textField;
 
 @protected
     __unsafe_unretained QuickDialogTableView *_quickformTableView;
 }
 
-@property(nonatomic, strong) QTextField *textField;
+@property(nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) NSStringMask *mask;
 
 - (void)updatePrevNextStatus;

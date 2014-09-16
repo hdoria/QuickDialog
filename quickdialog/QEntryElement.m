@@ -16,9 +16,7 @@
 #import "QuickDialog.h"
 #import "NSStringMask.h"
 
-@implementation QEntryElement  {
-    __unsafe_unretained QuickDialogController *_controller;
-}
+@implementation QEntryElement
 
 @synthesize textValue = _textValue;
 @synthesize placeholder = _placeholder;
@@ -57,13 +55,14 @@
 
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
 
+    self.controller = controller;
+
     QEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuickformEntryElement"];
     if (cell==nil){
         cell = [[QEntryTableViewCell alloc] init];
     }
 
     [cell applyAppearanceForElement:self];
-    _controller = controller;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textField.enabled = self.enabled;
     cell.textField.userInteractionEnabled = self.enabled;
@@ -80,7 +79,7 @@
 
 - (void) fieldDidEndEditing
 {
-    [self handleElementSelected:_controller];
+    [self performAction];
 }
 
 - (void)fetchValueIntoObject:(id)obj {
@@ -113,7 +112,6 @@
 @synthesize enablesReturnKeyAutomatically = _enablesReturnKeyAutomatically;
 @synthesize secureTextEntry = _secureTextEntry;
 @synthesize clearsOnBeginEditing = _clearsOnBeginEditing;
-@synthesize accessoryType = _accessoryType;
 @synthesize customDateFormat = _customDateFormat;
 
 

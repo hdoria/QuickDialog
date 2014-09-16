@@ -36,16 +36,22 @@ static const int kCellMinimumLabelWidth = 80;
 {
     [super layoutSubviews];
 
-    CGSize sizeWithMargin = self.contentView.bounds.size;
+    [self layoutSubviewsInsideBounds:self.contentView.bounds];
+
+}
+
+- (void)layoutSubviewsInsideBounds:(CGRect)bounds
+{
+    CGSize sizeWithMargin = bounds.size;
 
     if (self.imageView.image!=nil){
-        sizeWithMargin = CGSizeMake(sizeWithMargin.width - self.imageView.image.size.width - kCellMarginDouble, sizeWithMargin.height);
+        sizeWithMargin = CGSizeMake(sizeWithMargin.width - self.imageView.image.size.width - QCellMarginDouble, sizeWithMargin.height);
     }
 
     if (_labelingPolicy == QLabelingPolicyTrimTitle)
     {
         if (self.textLabel.text!=nil){
-            sizeWithMargin = CGSizeMake(sizeWithMargin.width-kCellMinimumLabelWidth, sizeWithMargin.height-kCellMarginDouble);
+            sizeWithMargin = CGSizeMake(sizeWithMargin.width-kCellMinimumLabelWidth, sizeWithMargin.height- QCellMarginDouble);
         }
 
         CGSize valueSize = CGSizeZero;
@@ -55,15 +61,15 @@ static const int kCellMinimumLabelWidth = 80;
 
         self.textLabel.frame = CGRectMake(
                 self.textLabel.frame.origin.x,
-                kCellMargin,
-                self.contentView.bounds.size.width - valueSize.width - kCellMarginDouble - kCellMarginDouble,
-                self.contentView.bounds.size.height- kCellMarginDouble);
+                QCellMargin,
+                bounds.size.width - valueSize.width - QCellMarginDouble - QCellMarginDouble,
+                bounds.size.height- QCellMarginDouble);
 
         self.detailTextLabel.frame = CGRectMake(
-                self.contentView.bounds.size.width - valueSize.width - kCellMargin,
-                kCellMargin,
+                bounds.size.width - valueSize.width - QCellMargin,
+                QCellMargin,
                 valueSize.width,
-                self.contentView.bounds.size.height- kCellMarginDouble);
+                bounds.size.height- QCellMarginDouble);
     } else {
 
         if (self.subtitleValue.text != nil) {
@@ -100,7 +106,7 @@ static const int kCellMinimumLabelWidth = 80;
 
             [self.contentView addSubview:self.subtitleValue];
             [self.contentView addSubview:self.subtitle];
-            
+
         } else {
         
             if (self.detailTextLabel.text != nil){
@@ -148,15 +154,12 @@ static const int kCellMinimumLabelWidth = 80;
                                                         0,
                                                         self.detailTextLabel.frame.size.width,
                                                         self.textLabel.frame.size.height);
-                
+
                 [self.contentView addSubview:self.subtitle];
             }
         }
-
     }
 }
-
-
 - (void)applyAppearanceForElement:(QElement *)element {
     QAppearance *appearance = element.appearance;
     self.textLabel.textColor = element.enabled  ? appearance.labelColorEnabled : appearance.labelColorDisabled;

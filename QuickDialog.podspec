@@ -43,7 +43,6 @@ Pod::Spec.new do |s|
 
   s.subspec "NSStringMask" do |sp|
     sp.source_files = 'quickdialog/NSStringMask.{h,m}'
-	sp.requires_arc = false
   end
 
   s.prefix_header_contents = <<-EOS

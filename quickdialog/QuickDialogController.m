@@ -1,4 +1,4 @@
-//                                
+	//                                
 // Copyright 2011 ESCOZ Inc  - http://escoz.com
 // 
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
@@ -126,6 +126,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    _viewOnScreen = YES;
 
     if (_root.showKeyboardOnAppear) {
         QEntryElement *elementToFocus = [_root findElementToFocusOnAfter:nil];

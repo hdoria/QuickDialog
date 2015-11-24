@@ -24,10 +24,12 @@
 @interface QTextElement : QRootElement {
 
 @protected
+    NSAttributedString *_attributedText;
     NSString *_text;
     UIColor *_color;
 }
 
+@property(nonatomic, strong) NSAttributedString *attributedText;
 @property(nonatomic, strong) NSString *text;
 @property(nonatomic, retain) UIColor *color;
 @property(nonatomic, strong) UIImage *image;

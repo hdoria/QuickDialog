@@ -20,20 +20,21 @@
         _selectSection = section;
         _index = index;
         _title = [[_selectSection.items objectAtIndex:_index] description];
+        _checkmarkImage = [UIImage imageNamed:@"checkmark"];
     }
     return self;
 }
 
--(void)setCheckmarkImageNamed:(NSString *)name {
-    if(name != nil) {
-        self.checkmarkImage = [UIImage imageNamed:name];
-    }
-}
+//-(void)setCheckmarkImageNamed:(NSString *)name {
+////    if(name != nil) {
+//        self.checkmarkImage = [UIImage imageNamed:@"ico_mapa"];
+////    }
+//}
 
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller
 {
     UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
-    cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleGray : UITableViewCellSelectionStyleNone;
     if ([_selectSection.selectedIndexes containsObject:[NSNumber numberWithUnsignedInteger:_index]] ) {
         [self updateCell:cell];
     } else {
@@ -101,8 +102,9 @@
 
 - (void)updateCell:(UITableViewCell *)selectedCell {
     if (self.checkmarkImage ==nil){
-        selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        selectedCell.accessoryView = nil;
+        UIImageView *view = [[UIImageView alloc] initWithImage:_checkmarkImage];
+        [view sizeToFit];
+        selectedCell.accessoryView = view;
     } else {
         selectedCell.accessoryType = UITableViewCellAccessoryNone;
         UIImageView *view = [[UIImageView alloc] initWithImage:_checkmarkImage];

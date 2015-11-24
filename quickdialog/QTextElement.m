@@ -44,6 +44,7 @@
 
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.text = self.title;
+    cell.textLabel.attributedText = _attributedText;
     cell.detailTextLabel.font = self.appearance.valueFont;
     cell.detailTextLabel.textColor = _color;
     cell.detailTextLabel.text = _text;

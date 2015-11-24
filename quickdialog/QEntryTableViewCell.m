@@ -250,6 +250,8 @@
         textField.text = mutableString;
         [textField setValue:[NSValue valueWithRange:newRange] forKey:@"selectionRange"];
         
+        [_entryElement.delegate QEntryShouldChangeCharactersInRange:range withString:string forElement:_entryElement andCell:self];
+        
         return NO;
     }
    

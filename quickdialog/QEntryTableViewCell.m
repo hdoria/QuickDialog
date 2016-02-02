@@ -29,11 +29,11 @@
     UIToolbar *actionBar = [[UIToolbar alloc] init];
     [actionBar sizeToFit];
 
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"")
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Fechar", @"")
                                                                    style:UIBarButtonItemStyleDone target:self
                                                                   action:@selector(handleActionBarDone:)];
 
-    _prevNext = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Previous", @""), NSLocalizedString(@"Next", @""), nil]];
+    _prevNext = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Anterior", @""), NSLocalizedString(@"Próximo", @""), nil]];
     _prevNext.momentary = YES;
     _prevNext.segmentedControlStyle = UISegmentedControlStyleBar;
     _prevNext.tintColor = actionBar.tintColor;

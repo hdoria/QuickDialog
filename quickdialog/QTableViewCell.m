@@ -15,6 +15,13 @@
 #import "QTableViewCell.h"
 @implementation QTableViewCell
 
+
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+#define IS_IPAD    (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
+
 static const int kCellMarginDouble = 16;
 static const int kCellMargin = 8;
 static const int kCellMinimumLabelWidth = 80;
@@ -60,17 +67,25 @@ static const int kCellMinimumLabelWidth = 80;
         }
 
         self.textLabel.frame = CGRectMake(
-                self.textLabel.frame.origin.x,
-                QCellMargin,
-                bounds.size.width - valueSize.width - QCellMarginDouble - QCellMarginDouble,
-                bounds.size.height- QCellMarginDouble);
+                                          self.textLabel.frame.origin.x,
+                                          QCellMargin,
+                                          bounds.size.width - valueSize.width - QCellMarginDouble - QCellMarginDouble,
+                                          bounds.size.height- QCellMarginDouble);
 
         self.detailTextLabel.frame = CGRectMake(
-                bounds.size.width - valueSize.width - QCellMargin,
-                QCellMargin,
-                valueSize.width,
-                bounds.size.height- QCellMarginDouble);
+                                                bounds.size.width - valueSize.width - QCellMargin,
+                                                QCellMargin,
+                                                valueSize.width,
+                                                bounds.size.height- QCellMarginDouble);
     } else {
+
+        double espacamento = 30;
+
+        if (IS_IPAD) {
+            espacamento = 60;
+        } else if (IS_IPHONE_6_PLUS) {
+            espacamento = 30;
+        }
 
         if (self.subtitleValue.text != nil) {
             // titulo da esquerda
@@ -80,10 +95,9 @@ static const int kCellMinimumLabelWidth = 80;
                                               self.textLabel.frame.size.width,
                                               self.contentView.bounds.size.height- kCellMarginDouble);
 
-
             // valor da esquerda
             [self.detailTextLabel sizeToFit];
-            self.detailTextLabel.frame = CGRectMake(self.textLabel.frame.size.width + 20,
+            self.detailTextLabel.frame = CGRectMake(self.textLabel.frame.size.width + espacamento,
                                                     kCellMargin,
                                                     self.detailTextLabel.frame.size.width,
                                                     self.contentView.bounds.size.height- kCellMarginDouble);
@@ -96,10 +110,9 @@ static const int kCellMinimumLabelWidth = 80;
                                                   kCellMargin,
                                                   self.subtitleValue.frame.size.width,
                                                   self.contentView.bounds.size.height- kCellMarginDouble);
-
             // valor da direita
             [self.subtitle sizeToFit];
-            self.subtitle.frame = CGRectMake((self.contentView.bounds.size.width - self.subtitleValue.frame.size.width) - self.subtitle.frame.size.width - 20,
+            self.subtitle.frame = CGRectMake((self.contentView.bounds.size.width - self.subtitleValue.frame.size.width) - self.subtitle.frame.size.width - espacamento,
                                              kCellMargin,
                                              self.subtitle.frame.size.width,
                                              self.contentView.bounds.size.height- kCellMarginDouble);
@@ -108,7 +121,7 @@ static const int kCellMinimumLabelWidth = 80;
             [self.contentView addSubview:self.subtitle];
 
         } else {
-        
+
             if (self.detailTextLabel.text != nil){
                 sizeWithMargin = CGSizeMake(sizeWithMargin.width-kCellMinimumLabelWidth, sizeWithMargin.height-kCellMarginDouble);
             }
@@ -121,20 +134,20 @@ static const int kCellMinimumLabelWidth = 80;
             }
 
             self.textLabel.frame = CGRectMake(
-                    self.textLabel.frame.origin.x,
-                    kCellMargin,
-                    valueSize.width,
-                    self.contentView.bounds.size.height- kCellMarginDouble);
+                                              self.textLabel.frame.origin.x,
+                                              kCellMargin,
+                                              valueSize.width,
+                                              self.contentView.bounds.size.height- kCellMarginDouble);
 
             CGFloat detailsWidth = self.contentView.bounds.size.width - kCellMarginDouble;
             if (valueSize.width>0)
                 detailsWidth = detailsWidth - valueSize.width - kCellMarginDouble;
 
             self.detailTextLabel.frame = CGRectMake(
-                    self.contentView.bounds.size.width - detailsWidth - kCellMargin,
-                    kCellMargin,
-                    detailsWidth,
-                    self.contentView.bounds.size.height- kCellMarginDouble);
+                                                    self.contentView.bounds.size.width - detailsWidth - kCellMargin,
+                                                    kCellMargin,
+                                                    detailsWidth,
+                                                    self.contentView.bounds.size.height- kCellMarginDouble);
 
             if (self.subtitle.text != nil) {
                 self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x,
@@ -179,15 +192,15 @@ static const int kCellMinimumLabelWidth = 80;
     self.subtitle.textAlignment = appearance.labelAlignment;
     self.subtitle.numberOfLines = 0;
     self.subtitle.backgroundColor = [UIColor clearColor];
-
+    
     self.subtitleValue.textColor = element.enabled ? appearance.valueColorEnabled : appearance.valueColorDisabled;
     self.subtitleValue.font = appearance.valueFont;
     self.subtitleValue.textAlignment = appearance.valueAlignment;
     self.subtitleValue.numberOfLines = 0;
     self.subtitleValue.backgroundColor = [UIColor clearColor];
-
+    
     self.backgroundColor = element.enabled ? appearance.backgroundColorEnabled : appearance.backgroundColorDisabled;
     self.selectedBackgroundView = element.appearance.selectedBackgroundView;
-
+    
 }
 @end
